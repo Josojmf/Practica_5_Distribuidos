@@ -23,7 +23,8 @@ app.get("/", (_req, res) => {
 });
 
 io.on("connection", (socket) => {
-  socket.on("chat message", (_msg) => {
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
     const _ntpRes = sync().then((time) => {
       return time;
     });
