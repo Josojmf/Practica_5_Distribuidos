@@ -27,6 +27,10 @@ npm run start chat
 ````
 docker compose up --build
 ````
+# Run whole Application Uploading to Docker Hub (Need to Login First )
+````
+npm run build`
+````
 
 
 # TODO:
