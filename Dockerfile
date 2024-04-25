@@ -38,7 +38,10 @@ FROM deps as build
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
-    npm ci
+    npm ci \
+    -e NEW_RELIC_LICENSE_KEY=YOUR_LICENSE_KEY \
+       -e NEW_RELIC_APP_NAME="Monitor App Practica 5" \
+       practica_5_distribuidos-server:latest
 
 # Copy the rest of the source files into the image.
 COPY . .

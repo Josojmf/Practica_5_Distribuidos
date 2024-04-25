@@ -5,6 +5,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "newrelic": "^11.15.0",
+    "node": "^22.0.0",
     "ntp-time": "^2.0.4",
     "socket.io": "^4.1.2"
   },
@@ -16,10 +17,9 @@
     "deploy": "gh-pages -d build",
     "start": "git pull origin main & npm run startchat & npm run startntp ",
     "heroku-postbuild": "npm install && npm run start",
-    "monitor": "node newrelic ./src/index.js & node newrelic ./src/ntpserver.js"    ,
-    "build": "docker compose up --build & docker push josojmf55/practica_5_distribuidos:upload"
+    "monitor": "npm install newrelic node newrelic & npm run start",
+    "build": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
   },
-
   "devDependencies": {
     "concurrently": "^8.2.2",
     "gh-pages": "^6.1.1",
