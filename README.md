@@ -35,11 +35,6 @@ npm run build`
 
 # TODO:
 <li>
-Subir Herouku
-</li>
-<li>
-Mirar Digital Ocean
-<li>
 Mirar Api Discord microservicios
 </li>
 <li>
