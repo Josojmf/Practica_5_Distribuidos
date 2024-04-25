@@ -6,6 +6,8 @@
    - <img src="/Images/image.png">
  - 3 Servidor NTP Propio
    <img src="/Images/NTPSERVER.png">
+# Arquitectura
+<img src=""><img src="/Images/image.png">
 
 # Install dependencies:
 ````
