@@ -9,17 +9,18 @@
     "ntp-time": "^2.0.4",
     "socket.io": "^4.1.2"
   },
+  "engines" : { 
+    "npm" : "10.2.4",
+    "node" : "22.0.0"
+  },
   "scripts": {
     "startchat": "node  ./src/index.js",
     "startntp": "node ./src/ntpserver.js",
     "dev": "nodemon ./src/index.js",
     "devntp": "nodemon ./src/ntpserver.js",
-    "deploy": "gh-pages -d build",
     "start": "git pull origin main & npm run startchat & npm run startntp ",
-    "heroku-postbuild": "npm install && npm run start",
-    "monitor": "npm install newrelic node newrelic & npm run start",
     "build": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
-  },
+    },
   "devDependencies": {
     "concurrently": "^8.2.2",
     "gh-pages": "^6.1.1",
