@@ -65,6 +65,7 @@
       border: none;
       padding: 10px;
     }
+
     #clearButton {
       position: absolute;
       cursor: pointer;
@@ -154,6 +155,7 @@
       color: black;
       background: black;
     }
+
     #FetchTimeButton {
       cursor: pointer;
       position: absolute;
@@ -191,16 +193,13 @@
     <button id="ReopenConnection">Reopen Connection</button>
     <button id="FetchTimeButton" className="FetchTimeButton">Fetch Time</button>
     <button id="clearButton">Clear chat</button>
-    <script>
-
-    </script>
-
     <script src="/socket.io/socket.io.js"></script>
     <div>
       <script>
         var form = document.getElementById('form');
         var input = document.getElementById('input');
         var messages = document.getElementById('messages');
+        let alert = require('alert');
         form.addEventListener('submit', function (e) {
           e.preventDefault();
           if (input.value) {
@@ -231,7 +230,7 @@
 
         fetchTimeButton.addEventListener('click', function () {
           fetchTime().then(response => {
-            console.log(response);
+            alert(response.datetime);
           });
         });
         clearButton.addEventListener('click', function () {

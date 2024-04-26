@@ -3,6 +3,8 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT || 3000;
 const NTP = require("ntp-time").Client;
+let alert = require('alert');
+
 const client = new NTP("a.st1.ntp.br", 123, { timeout: 5000 });
 async function sync() {
   try {
