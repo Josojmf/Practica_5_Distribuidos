@@ -156,17 +156,6 @@
       background: black;
     }
 
-    #FetchTimeButton {
-      cursor: pointer;
-      position: absolute;
-      top: 10%;
-      right: 5px;
-      width: 9%;
-      background: rgb(130, 224, 255);
-      color: white;
-      border: none;
-      padding: 10px;
-    }
   </style>
 
 </head>
@@ -191,7 +180,6 @@
     </form>
     <button id="closeButton">Close</button>
     <button id="ReopenConnection">Reopen Connection</button>
-    <button id="FetchTimeButton" className="FetchTimeButton">Fetch Time</button>
     <button id="clearButton">Clear chat</button>
     <script src="/socket.io/socket.io.js"></script>
     <div>
@@ -210,7 +198,6 @@
         var timeAPIURL = "http://worldtimeapi.org/api/timezone/Europe/Madrid"
         const response = fetch(timeAPIURL);
         var closeButton = document.getElementById('closeButton');
-        var fetchTimeButton = document.getElementById('FetchTimeButton');
         var ReopenConnection = document.getElementById('ReopenConnection');
         var clearButton = document.getElementById('clearButton');
         var messages = document.getElementById('messages');
@@ -227,11 +214,6 @@
           });
         }
 
-        fetchTimeButton.addEventListener('click', function () {
-          fetchTime().then(response => {
-            alert(response.datetime);
-          });
-        });
         clearButton.addEventListener('click', function () {
           messages.innerHTML = '';
         });
