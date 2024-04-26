@@ -18,8 +18,8 @@
     "startntp": "node ./src/ntpserver.js",
     "dev": "nodemon ./src/index.js",
     "devntp": "nodemon ./src/ntpserver.js",
-    "start": "npm run startchat & npm run startntp ",
-    "build": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
+    "build": "npm run startchat & npm run startntp ",
+    "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
     },
   "devDependencies": {
     "concurrently": "^8.2.2",
