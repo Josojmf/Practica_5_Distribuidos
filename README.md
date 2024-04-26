@@ -9,20 +9,20 @@
 # Link Operativo:
 
 https://practica-5-distribuidos.onrender.com/
-
-# Install dependencies:
+# RUN LOCAL
+## Install dependencies:
 ````
 npm install
 ````
-# Run both scripts
+## Run both scripts
 ````
 npm run start
 ````
-# Run just NTP server
+## Run just NTP server
 ````
 npm run startntp
 ````
-# Run just Chat server
+## Run just Chat server
 ````
 npm run start chat
 ````
