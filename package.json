@@ -18,7 +18,7 @@
     "startntp": "node ./src/ntpserver.js",
     "dev": "nodemon ./src/index.js",
     "devntp": "nodemon ./src/ntpserver.js",
-    "build": "npm run startchat & npm run startntp ",
+    "start": "npm run startchat & npm run startntp ",
     "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
     },
   "devDependencies": {
