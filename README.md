@@ -6,6 +6,9 @@
    - <img src="/Images/image.png">
  - 3 Servidor NTP Propio
    <img src="/Images/NTPSERVER.png">
+# Link Operativo:
+
+https://practica-5-distribuidos.onrender.com/
 
 # Install dependencies:
 ````
@@ -23,7 +26,7 @@ npm run startntp
 ````
 npm run start chat
 ````
-# Run Docker whole Application
+# Run Docker whole Application on local
 ## If you build the app, you will need to change the username,dockerhub repo and tag of your docker build
 ````
 docker compose up --build
@@ -34,16 +37,13 @@ npm run build
 ````
 
 
+
+
 # TODO:
-<li>
-Subir Herouku
-</li>
 Mirar Api Discord microservicios
 </li>
 <li>
 Mirar Api Telegram microservicios
 </li>
-<li>
-Google cLOUD
-</li>
+
 
