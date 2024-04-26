@@ -6,8 +6,6 @@
    - <img src="/Images/image.png">
  - 3 Servidor NTP Propio
    <img src="/Images/NTPSERVER.png">
-# Arquitectura
-<img src=""><img src="/Images/image.png">
 
 # Install dependencies:
 ````
@@ -26,20 +24,26 @@ npm run startntp
 npm run start chat
 ````
 # Run Docker whole Application
+## If you build the app, you will need to change the username,dockerhub repo and tag of your docker build
 ````
 docker compose up --build
 ````
 # Run whole Application Uploading to Docker Hub (Need to Login First )
 ````
-npm run build`
+npm run build
 ````
 
 
 # TODO:
 <li>
+Subir Herouku
+</li>
 Mirar Api Discord microservicios
 </li>
 <li>
 Mirar Api Telegram microservicios
+</li>
+<li>
+Google cLOUD
 </li>
 
