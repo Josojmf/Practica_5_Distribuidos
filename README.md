@@ -35,6 +35,10 @@ docker compose up --build
 ````
 npm run build
 ````
+# Run Application Monitor on newrelic
+````
+npm run monitor
+````
 
 
 

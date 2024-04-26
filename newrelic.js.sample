@@ -1,0 +1,16 @@
+exports.config = {
+    app_name: "YOUR APP NAME",
+    license_key: 'YOUR LICENSE KEY', // only thing required (or set NEW_RELIC_LICENSE_KEY env variable)
+    logging: {
+      level: 'info'
+    },
+    agent_enabled: true,
+    error_collector: {
+      enabled: true,
+      ignore_status_codes: [404, 405, 418]
+    },
+    process_host: {
+      display_name: "YOUR APP NAME",
+    }
+  }
+  

@@ -20,7 +20,8 @@
     "dev": "nodemon ./src/index.js",
     "devntp": "nodemon ./src/ntpserver.js",
     "start": "npm run startchat & npm run startntp ",
-    "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build "
+    "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build ",
+    "monitor": "node -r newrelic ./src/index.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
