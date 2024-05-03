@@ -3,9 +3,9 @@ const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const port = process.env.PORT || 3000;
 const NTP = require("ntp-time").Client;
-let alert = require('alert');
-
 const client = new NTP("a.st1.ntp.br", 123, { timeout: 5000 });
+const MongoClient = require("mongodb").MongoClient;
+
 async function sync() {
   try {
     const timeNTP = await client.syncTime();
@@ -19,19 +19,57 @@ async function sync() {
     io.emit("chat message", "");
   }
 }
+ function fetchDBmessages() {
+  const dbName = "Practica5Distribuidos";
+  const collectionName = "chat";
+  const uri =
+    "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
+  const mongoclient = new MongoClient(uri);
+  mongoclient.connect().then(() => {
+    const database = mongoclient.db(dbName);
+    const collection = database.collection(collectionName);
+    collection
+      .find()
+      .limit(5)
+      .sort({ time: -1 })
+      .toArray()
+      .then((messages) => {
+        messages.forEach((message) => {
+          io.emit("chat message", message.message);
+        });
+      });
+  });
+}
 
 app.get("/", (_req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/history", (_req, res) => {
+  fetchDBmessages();
+  res.sendFile(__dirname + "/history.html");
+});
+
 io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
+    const message = { message: msg, time: new Date() };
+    const dbName = "Practica5Distribuidos";
+    const collectionName = "chat";
+    const uri =
+      "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
+    const mongoclient = new MongoClient(uri);
+    mongoclient.connect().then(() => {
+      const database = mongoclient.db(dbName);
+      const collection = database.collection(collectionName);
+      collection.insertOne(message).then(() => {
+        io.emit("chat message", msg);
+      });
+    });
     const _ntpRes = sync().then((time) => {
       return time;
     });
 
-    const  timeAPIURL = "http://worldtimeapi.org/api/timezone/Europe/Madrid";
+    const timeAPIURL = "http://worldtimeapi.org/api/timezone/Europe/Madrid";
     const _apiRes = fetch(timeAPIURL)
       .then((response) => response.json())
       .then(
@@ -40,13 +78,13 @@ io.on("connection", (socket) => {
             "chat message",
             "API Server sync time:" + new Date(data.datetime)
           ),
-        io.emit("chat message", "Local time:" + new Date()),
+        io.emit("chat message", "Local time:" + new Date())
       );
   });
 });
 
-
-
 http.listen(port, () => {
+  
+
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });

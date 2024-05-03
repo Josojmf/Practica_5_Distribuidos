@@ -69,11 +69,28 @@
     #clearButton {
       position: absolute;
       cursor: pointer;
-      top: 10%;
+      top: 15%;
       right: 5px;
       width: 9%;
 
       background: rgb(59, 0, 0);
+      color: white;
+      border: none;
+      padding: 10px;
+    }
+
+    #fetchMsgs {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      justify-content: center;
+      position: absolute;
+      cursor: pointer;
+      top: 10%;
+      right: 5px;
+      width: 9%;
+      text-decoration: none;
+      background: rgb(255, 0, 208);
       color: white;
       border: none;
       padding: 10px;
@@ -155,21 +172,46 @@
       color: black;
       background: black;
     }
-
   </style>
 
 </head>
 
-<body>
+<body onload="startTime()">
 
   <div className="Body">
     <h1 className="MainTitle">Chat sincronizado</h1>
-    <h2>Local Time:
-      <script>
-        var timenow = new Date();
-        document.write(timenow);
-      </script>
-    </h2>
+    <h2 id="txt"></h2>
+    <script>
+      function fetchMsgs() {
+        fetch('http://localhost:3000/messages')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            data.forEach(msg => {
+              var item = document.createElement('li');
+              item.textContent = msg;
+              messages.appendChild(item);
+              window.scrollTo(0, document.body.scrollHeight);
+              item.classList.add('message');
+            });
+          });
+      }
+      function startTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('txt').innerHTML = "Local Time: " + h + ":" + m + ":" + s;
+        setTimeout(startTime, 1000);
+      }
+
+      function checkTime(i) {
+        if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+        return i;
+      }
+    </script>
 
     <div className="messageContainer">
       <ul id="messages" className="messageUL"></ul>
@@ -181,12 +223,20 @@
     <button id="closeButton">Close</button>
     <button id="ReopenConnection">Reopen Connection</button>
     <button id="clearButton">Clear chat</button>
+    <a id="fetchMsgs" href="/history">History</a>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mongodb@4.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mongodb@4.0.0"></script>
+    <script>
+
+    </script>
     <div>
       <script>
         var form = document.getElementById('form');
         var input = document.getElementById('input');
         var messages = document.getElementById('messages');
+
+
         form.addEventListener('submit', function (e) {
           e.preventDefault();
           if (input.value) {
@@ -204,6 +254,7 @@
         var form = document.getElementById('form');
         var input = document.getElementById('input');
         var isDisabled = false;
+        var fetchMsgs = document.getElementById('fetchMsgs');
 
         async function fetchTime() {
           var timeAPIURL = "http://worldtimeapi.org/api/timezone/Europe/Madrid"
@@ -213,6 +264,7 @@
             return data;
           });
         }
+
 
         clearButton.addEventListener('click', function () {
           messages.innerHTML = '';
@@ -227,8 +279,6 @@
         });
 
         socket.on('chat message', function (msg) {
-          //get the three messages that come separeted in each connection
-
           var item = document.createElement('li');
           var receivedMessages = [];
           var allfieldsmsg = [];
@@ -261,8 +311,9 @@
         item.textContent = msg;
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
-
+        item.classList.add('message');
       </script>
+
     </div>
   </div>
 </body>

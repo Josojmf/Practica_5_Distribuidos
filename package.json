@@ -5,23 +5,26 @@
   "dependencies": {
     "alert": "^6.0.1",
     "express": "^4.17.1",
+    "jsdom": "^24.0.0",
+    "mongodb": "^6.5.0",
     "newrelic": "^11.15.0",
     "node": "^22.0.0",
     "ntp-time": "^2.0.4",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.1.2",
+    "telegram": "^2.20.15"
   },
   "engines": {
     "npm": "10.2.4",
     "node": "22.0.0"
   },
   "scripts": {
-    "startchat": "node  ./src/index.js",
-    "startntp": "node ./src/ntpserver.js",
-    "dev": "nodemon ./src/index.js",
-    "devntp": "nodemon ./src/ntpserver.js",
+    "startchat": "node src/index.js",
+    "startntp": "node src/ntpserver.js",
+    "dev": "nodemon ./CHAT/index.js -watch './CHAT/**/*.html' -watch './CHAT/**/*.js'",
+    "devntp": "nodemon ./NTP/ntpserver.js",
     "start": "npm run startchat & npm run startntp ",
     "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build ",
-    "monitor": "node -r newrelic ./src/index.js"
+    "monitor": "node -r newrelic ./CHAT/index.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
