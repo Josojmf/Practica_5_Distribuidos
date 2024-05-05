@@ -19,12 +19,16 @@ async function sync() {
     io.emit("chat message", "");
   }
 }
- function fetchDBmessages() {
+ async function fetchDBmessages() {
   const dbName = "Practica5Distribuidos";
   const collectionName = "chat";
   const uri =
     "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
   const mongoclient = new MongoClient(uri);
+  const cli =await mongoclient.connect()
+  const database = cli.db(dbName);
+  const collection = database.collection(collectionName);
+  const messages = await collection.find().limit(5).sort({ time: -1 }).toArray();
   mongoclient.connect().then(() => {
     const database = mongoclient.db(dbName);
     const collection = database.collection(collectionName);
@@ -35,9 +39,13 @@ async function sync() {
       .toArray()
       .then((messages) => {
         messages.forEach((message) => {
-          io.emit("chat message", message.message);
+          if (message.message){
+          io.emit("chat message", message. message + " On: " + message.time);
+          } else {
+            io.emit("chat message", "Loading...");
+          }
         });
-      });
+      })
   });
 }
 
