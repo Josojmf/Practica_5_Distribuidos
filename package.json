@@ -21,7 +21,7 @@
     "startchat": "node src/index.js",
     "startntp": "node src/ntpserver.js",
     "dev": "nodemon ./CHAT/index.js -watch './CHAT/**/*.html' -watch './CHAT/**/*.js'",
-    "devntp": "nodemon ./NTP/ntpserver.js",
+    "devntp": "nodemon ./ntpserver.js",
     "start": "npm run startchat & npm run startntp ",
     "build-local": "docker push josojmf55/practica_5_distribuidos:upload & docker compose up --build ",
     "monitor": "node -r newrelic ./CHAT/index.js"
