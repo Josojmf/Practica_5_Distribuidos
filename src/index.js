@@ -26,9 +26,7 @@ async function fetchDBmessages() {
     "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
   try {
     const mongoclient = new MongoClient(uri);
-    console.log("Connecting to MongoDB");
     const cli = await mongoclient.connect();
-    console.log("Connected to MongoDB");
     const database = cli.db(dbName);
     const collection = database.collection(collectionName);
     const messages = await collection
