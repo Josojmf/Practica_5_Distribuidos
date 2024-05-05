@@ -19,35 +19,49 @@ async function sync() {
     io.emit("chat message", "");
   }
 }
- async function fetchDBmessages() {
+async function fetchDBmessages() {
   const dbName = "Practica5Distribuidos";
   const collectionName = "chat";
   const uri =
     "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
-  const mongoclient = new MongoClient(uri);
-  const cli =await mongoclient.connect();
-  console.log("Connected to MongoDB");
-  const database = cli.db(dbName);
-  const collection = database.collection(collectionName);
-  const messages = await collection.find().limit(5).sort({ time: -1 }).toArray();
-  mongoclient.connect().then(() => {
-    const database = mongoclient.db(dbName);
+  try {
+    const mongoclient = new MongoClient(uri);
+    console.log("Connecting to MongoDB");
+    const cli = await mongoclient.connect();
+    console.log("Connected to MongoDB");
+    const database = cli.db(dbName);
     const collection = database.collection(collectionName);
-    collection
+    const messages = await collection
       .find()
       .limit(5)
       .sort({ time: -1 })
-      .toArray()
-      .then((messages) => {
-        messages.forEach((message) => {
-          if (message.message){
-          io.emit("chat message", message. message + " On: " + message.time);
-          } else {
-            io.emit("chat message", "Loading...");
-          }
+      .toArray();
+    mongoclient.connect().then(() => {
+      const database = mongoclient.db(dbName);
+      const collection = database.collection(collectionName);
+      collection
+        .find()
+        .limit(5)
+        .sort({ time: -1 })
+        .toArray()
+        .then((messages) => {
+          messages.forEach((message) => {
+            if (message.message) {
+              io.emit("chat message", message.message + " On: " + message.time);
+            } else {
+              io.emit("chat message", "Loading...");
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("ERROR-------------------------", error);
+          io.emit("chat message", "Error loading messages");
         });
-      })
-  });
+    });
+  } catch (error) {
+    console.error("ERROR-------------------------", error);
+    io.emit("chat message", "Error loading messages");
+  }
 }
 
 app.get("/", (_req, res) => {
@@ -93,7 +107,5 @@ io.on("connection", (socket) => {
 });
 
 http.listen(port, () => {
-  
-
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
