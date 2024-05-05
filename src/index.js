@@ -25,7 +25,8 @@ async function sync() {
   const uri =
     "mongodb+srv://josojmf:yk6zucBZhK9CGsRT@practica5distribuidos.ryqbuhp.mongodb.net/?retryWrites=true&w=majority&appName=Practica5Distribuidos";
   const mongoclient = new MongoClient(uri);
-  const cli =await mongoclient.connect()
+  const cli =await mongoclient.connect();
+  console.log("Connected to MongoDB");
   const database = cli.db(dbName);
   const collection = database.collection(collectionName);
   const messages = await collection.find().limit(5).sort({ time: -1 }).toArray();
