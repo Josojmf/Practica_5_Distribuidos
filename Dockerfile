@@ -12,7 +12,7 @@ ARG NODE_VERSION=20.11.1
 # Use node image for base image for all stages.
 FROM node:${NODE_VERSION}-alpine as base
 
-# Set working directory for all build stages.
+# Set working directory for all build stages. s
 WORKDIR /usr/src/app
 
 
